@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BTMSAPI.Models;
+using Microsoft.EntityFrameworkCore;
 
 
 
@@ -8,6 +9,8 @@ namespace BTMSAPI.Data
     public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+
+        public DbSet<User> Users { get; set; }
 
     }
 }

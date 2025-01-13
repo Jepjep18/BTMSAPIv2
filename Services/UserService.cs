@@ -1,6 +1,7 @@
 ﻿using BTMSAPI.Models;
 using BTMSAPI.Repositories;
 using BCrypt.Net;
+using BTMSAPI.DTOs;
 
 
 namespace BTMSAPI.Services
@@ -29,12 +30,23 @@ namespace BTMSAPI.Services
             return await _userRepository.GetUserByUsernameAsync(username);
         }
 
-        public async Task CreateUserAsync(User user)
+        public async Task CreateUserAsync(CreateUserDto createUserDto)
         {
-            // Hash the password before saving
-            user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(user.PasswordHash);
+            var user = new User
+            {
+                Firstname = createUserDto.Firstname,
+                Middlename = createUserDto.Middlename,
+                Lastname = createUserDto.Lastname,
+                Role = createUserDto.Role,
+                Username = createUserDto.Username,
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(createUserDto.Password), // Hash the plain password
+                BusinessUnit = createUserDto.BusinessUnit,
+                Department = createUserDto.Department,
+                Position = createUserDto.Position,
+                Esignature = createUserDto.Esignature,
+                DateCreated = DateTime.UtcNow
+            };
 
-            // Save the user
             await _userRepository.AddUserAsync(user);
             await _userRepository.SaveChangesAsync();
         }
@@ -49,6 +61,11 @@ namespace BTMSAPI.Services
         {
             await _userRepository.DeleteUserAsync(id);
             await _userRepository.SaveChangesAsync();
+        }
+
+        public Task UpdatePasswordAsync(int userId, string newPassword)
+        {
+            throw new NotImplementedException();
         }
     }
 }

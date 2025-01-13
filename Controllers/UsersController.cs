@@ -1,4 +1,5 @@
 ﻿using BTMSAPI.Models;
+using BTMSAPI.DTOs;
 using BTMSAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,7 +35,7 @@ namespace BTMSAPI.Controllers
         }
 
         [HttpGet("username/{username}")]
-        public async Task<IActionResult> GetUserByUsername (string username)
+        public async Task<IActionResult> GetUserByUsername(string username)
         {
             var user = await _userService.GetUserByUsernameAsync(username);
             if (user == null)
@@ -45,15 +46,24 @@ namespace BTMSAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] User user)
+        public async Task<IActionResult> CreateUser([FromBody] CreateUserDto createUserDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            await _userService.CreateUserAsync(user);
-            return CreatedAtAction(nameof(GetUserById), new { id = user.Id }, user);
+            await _userService.CreateUserAsync(createUserDto);
+
+            // Since we need the user's ID for the CreatedAtAction result,
+            // we should fetch the newly created user
+            var createdUser = await _userService.GetUserByUsernameAsync(createUserDto.Username);
+
+            return CreatedAtAction(
+                nameof(GetUserById),
+                new { id = createdUser.Id },
+                createdUser
+            );
         }
 
         [HttpPut("{id}")]
@@ -69,6 +79,9 @@ namespace BTMSAPI.Controllers
             {
                 return NotFound();
             }
+
+            // Preserve the existing password hash
+            user.PasswordHash = existingUser.PasswordHash;
 
             await _userService.UpdateUserAsync(user);
             return NoContent();

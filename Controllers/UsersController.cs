@@ -22,10 +22,21 @@ namespace BTMSAPI.Controllers
             return Ok(users);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("id/{id}")]
         public async Task<IActionResult> GetUserById(int id)
         {
             var user = await _userService.GetUserByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return Ok(user);
+        }
+
+        [HttpGet("username/{username}")]
+        public async Task<IActionResult> GetUserByUsername (string username)
+        {
+            var user = await _userService.GetUserByUsernameAsync(username);
             if (user == null)
             {
                 return NotFound();

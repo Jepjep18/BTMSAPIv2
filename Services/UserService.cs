@@ -1,5 +1,7 @@
 ﻿using BTMSAPI.Models;
 using BTMSAPI.Repositories;
+using BCrypt.Net;
+
 
 namespace BTMSAPI.Services
 {
@@ -29,6 +31,10 @@ namespace BTMSAPI.Services
 
         public async Task CreateUserAsync(User user)
         {
+            // Hash the password before saving
+            user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(user.PasswordHash);
+
+            // Save the user
             await _userRepository.AddUserAsync(user);
             await _userRepository.SaveChangesAsync();
         }

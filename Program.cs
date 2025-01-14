@@ -18,6 +18,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IBusinessUnitRepository, BusinessUnitRepository>();
+builder.Services.AddScoped<IBusinessUnitService, BusinessUnitService>();
 
 // Configure JWT Authentication
 builder.Services.AddAuthentication(options =>

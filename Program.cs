@@ -27,6 +27,8 @@ builder.Services.AddScoped<IBatteryItemRepository, BatteryItemRepository>();
 builder.Services.AddScoped<IBatteryItemService, BatteryItemService>();
 builder.Services.AddScoped<IBatteryReleasedItemsRepository, BatteryReleasedItemsRepository>();
 builder.Services.AddScoped<IBatteryReleasedItemsService, BatteryReleasedItemsService>();
+builder.Services.AddScoped<IBatteryReturnedItemsRepository, BatteryReturnedItemsRepository>();
+builder.Services.AddScoped<IBatteryReturnedItemsService, BatteryReturnedItemsService>();
 
 // Configure JWT Authentication
 builder.Services.AddAuthentication(options =>

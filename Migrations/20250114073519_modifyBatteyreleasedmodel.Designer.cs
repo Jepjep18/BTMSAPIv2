@@ -4,6 +4,7 @@ using BTMSAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BTMSAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250114073519_modifyBatteyreleasedmodel")]
+    partial class modifyBatteyreleasedmodel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -118,32 +120,6 @@ namespace BTMSAPI.Migrations
                         .HasFilter("[BatteryItemId] IS NOT NULL");
 
                     b.ToTable("BatteryReleasedItems");
-                });
-
-            modelBuilder.Entity("BTMSAPI.Models.BatteryReturnedItems", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int?>("BatteryReleasedItemId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Endorsedby")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("ReceivedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BatteryReleasedItemId")
-                        .IsUnique()
-                        .HasFilter("[BatteryReleasedItemId] IS NOT NULL");
-
-                    b.ToTable("BatteryReturnedItems");
                 });
 
             modelBuilder.Entity("BTMSAPI.Models.BusinessUnit", b =>
@@ -255,16 +231,6 @@ namespace BTMSAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("BatteryItem");
-                });
-
-            modelBuilder.Entity("BTMSAPI.Models.BatteryReturnedItems", b =>
-                {
-                    b.HasOne("BTMSAPI.Models.BatteryReleasedItems", "BatteryReleasedItem")
-                        .WithOne()
-                        .HasForeignKey("BTMSAPI.Models.BatteryReturnedItems", "BatteryReleasedItemId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.Navigation("BatteryReleasedItem");
                 });
 #pragma warning restore 612, 618
         }

@@ -14,10 +14,10 @@ namespace BTMSAPI.Models
         public string? Remarks { get; set; }
         public int? BatteryItemId { get; set; }
         public string? OldSnDebossedNo { get; set; }
+        public DateTime ReleasedAt { get; set; } = DateTime.UtcNow;
 
         [ForeignKey("BatteryItemId")]
         [JsonIgnore]
         public BatteryItem? BatteryItem { get; set; }
-
     }
 }

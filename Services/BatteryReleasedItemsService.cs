@@ -8,10 +8,13 @@ namespace BTMSAPI.Services
     public class BatteryReleasedItemsService : IBatteryReleasedItemsService
     {
         private readonly IBatteryReleasedItemsRepository _repository;
+        private readonly IBatteryItemRepository _batteryItemRepository;
 
-        public BatteryReleasedItemsService(IBatteryReleasedItemsRepository repository)
+
+        public BatteryReleasedItemsService(IBatteryReleasedItemsRepository repository, IBatteryItemRepository batteryItemRepository)
         {
             _repository = repository;
+            _batteryItemRepository = batteryItemRepository;
         }
 
         public async Task<IEnumerable<BatteryReleasedItems>> GetAllBatteryReleasedItems()
@@ -26,6 +29,13 @@ namespace BTMSAPI.Services
 
         public async Task AddBatteryReleasedItem(BatteryReleasedItems batteryReleasedItem)
         {
+            var batteryItem = await _batteryItemRepository.GetBatteryItemById(batteryReleasedItem.BatteryItemId.Value);
+            if (batteryItem != null)
+            {
+                batteryItem.Status = "RELEASED";
+                await _batteryItemRepository.UpdateBatteryItem(batteryItem);
+            }
+
             await _repository.AddBatteryReleasedItem(batteryReleasedItem);
         }
 

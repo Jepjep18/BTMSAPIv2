@@ -39,7 +39,7 @@ namespace BTMSAPI.Services
                 Lastname = createUserDto.Lastname,
                 Role = createUserDto.Role,
                 Username = createUserDto.Username,
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword(createUserDto.Password), // Hash the plain password
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(createUserDto.Password),
                 BusinessUnit = createUserDto.BusinessUnit,
                 Department = createUserDto.Department,
                 Position = createUserDto.Position,
@@ -53,7 +53,24 @@ namespace BTMSAPI.Services
 
         public async Task UpdateUserAsync(User user)
         {
-            await _userRepository.UpdateUserAsync(user);
+            var existingUser = await _userRepository.GetUserByIdAsync(user.Id);
+            if (existingUser == null)
+            {
+                throw new KeyNotFoundException("User not found");
+            }
+
+            existingUser.Firstname = user.Firstname;
+            existingUser.Middlename = user.Middlename;
+            existingUser.Lastname = user.Lastname;
+            existingUser.Role = user.Role;
+            existingUser.Username = user.Username;
+            existingUser.BusinessUnit = user.BusinessUnit;
+            existingUser.Department = user.Department;
+            existingUser.Position = user.Position;
+            existingUser.Esignature = user.Esignature;
+            existingUser.IsActive = user.IsActive;
+
+            await _userRepository.UpdateUserAsync(existingUser);
             await _userRepository.SaveChangesAsync();
         }
 

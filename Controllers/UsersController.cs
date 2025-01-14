@@ -55,8 +55,6 @@ namespace BTMSAPI.Controllers
 
             await _userService.CreateUserAsync(createUserDto);
 
-            // Since we need the user's ID for the CreatedAtAction result,
-            // we should fetch the newly created user
             var createdUser = await _userService.GetUserByUsernameAsync(createUserDto.Username);
 
             return CreatedAtAction(
@@ -66,7 +64,7 @@ namespace BTMSAPI.Controllers
             );
         }
 
-        [HttpPut("{id}")]
+       [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(int id, [FromBody] User user)
         {
             if (id != user.Id)

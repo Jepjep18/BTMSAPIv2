@@ -38,9 +38,21 @@ namespace BTMSAPI.Services
 
         public async Task UpdateBusinessUnitAsync(BusinessUnit businessUnit)
         {
-            await _repository.UpdateBusinessUnitAsync(businessUnit);
+            var existingBusinessUnit = await _repository.GetBusinessUnitByIdAsync(businessUnit.Id);
+            if (existingBusinessUnit == null)
+            {
+                throw new KeyNotFoundException("Business Unit not found");
+            }
+
+            existingBusinessUnit.BusinessunitName = businessUnit.BusinessunitName;
+            existingBusinessUnit.BusinessunitDescription = businessUnit.BusinessunitDescription;
+            existingBusinessUnit.BusinessLocation = businessUnit.BusinessLocation;
+
+            await _repository.UpdateBusinessUnitAsync(existingBusinessUnit);
             await _repository.SaveChangesAsync();
+
         }
+
 
         public async Task DeleteBusinessUnitAsync(int id)
         {

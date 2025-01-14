@@ -23,6 +23,10 @@ builder.Services.AddScoped<IBusinessUnitRepository, BusinessUnitRepository>();
 builder.Services.AddScoped<IBusinessUnitService, BusinessUnitService>();
 builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+builder.Services.AddScoped<IBatteryItemRepository, BatteryItemRepository>();
+builder.Services.AddScoped<IBatteryItemService, BatteryItemService>();
+builder.Services.AddScoped<IBatteryReleasedItemsRepository, BatteryReleasedItemsRepository>();
+builder.Services.AddScoped<IBatteryReleasedItemsService, BatteryReleasedItemsService>();
 
 // Configure JWT Authentication
 builder.Services.AddAuthentication(options =>

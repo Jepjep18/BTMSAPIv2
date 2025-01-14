@@ -40,8 +40,8 @@ namespace BTMSAPI.Services
                 Unitofmeasurement = batteryItemDTO.Unitofmeasurement,
                 Batteryserial = batteryItemDTO.Batteryserial,
                 DebossedNo = batteryItemDTO.DebossedNo,
-                Status = batteryItemDTO.Status,
-                ItemCategory = batteryItemDTO.ItemCategory,
+                Status = "PENDING",
+                ItemCategory = "Battery"
             };
 
             await _repository.AddBatteryItem(batteryItem);

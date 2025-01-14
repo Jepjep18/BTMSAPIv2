@@ -4,6 +4,7 @@ using BTMSAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BTMSAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250114063047_AddedBatteryItemModelRepoServiceandController")]
+    partial class AddedBatteryItemModelRepoServiceandController
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,47 +74,6 @@ namespace BTMSAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("BatteryItems");
-                });
-
-            modelBuilder.Entity("BTMSAPI.Models.BatteryReleasedItems", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int?>("BatteryItemId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("BusinessUnit")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Imjno")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OldSnDebossedNo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("ReleaseDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ReleasedReceivedby")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Remarks")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserplateNo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BatteryItemId")
-                        .IsUnique()
-                        .HasFilter("[BatteryItemId] IS NOT NULL");
-
-                    b.ToTable("BatteryReleasedItems");
                 });
 
             modelBuilder.Entity("BTMSAPI.Models.BusinessUnit", b =>
@@ -214,16 +175,6 @@ namespace BTMSAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("BTMSAPI.Models.BatteryReleasedItems", b =>
-                {
-                    b.HasOne("BTMSAPI.Models.BatteryItem", "BatteryItem")
-                        .WithOne()
-                        .HasForeignKey("BTMSAPI.Models.BatteryReleasedItems", "BatteryItemId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.Navigation("BatteryItem");
                 });
 #pragma warning restore 612, 618
         }

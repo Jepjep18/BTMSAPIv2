@@ -13,6 +13,7 @@ namespace BTMSAPI.Data
         public DbSet<User> Users { get; set; }
         public DbSet<BusinessUnit> BusinessUnit { get; set; }
         public DbSet<Department> Department { get; set; }
+        public DbSet<BatteryItem> BatteryItems { get; set; }
 
     }
 }

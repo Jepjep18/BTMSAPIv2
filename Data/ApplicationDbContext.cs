@@ -18,6 +18,7 @@ namespace BTMSAPI.Data
         public DbSet<BatteryReturnedItems> BatteryReturnedItems { get; set; }
         public DbSet<TireItem> TireItems { get; set; }
         public DbSet<TireReleasedItems> TireReleasedItems { get; set; }
+        public DbSet<TireReturnedItems> TireReturnedItems { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -43,6 +44,13 @@ namespace BTMSAPI.Data
                 .WithOne()
                 .HasForeignKey<TireReleasedItems>(t => t.TireItemId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<TireReturnedItems>()
+                .HasOne(t => t.TireReleasedItems)
+                .WithOne()
+                .HasForeignKey<TireReturnedItems>(t => t.TireReleasedId)
+                .OnDelete(DeleteBehavior.Cascade);
+
 
 
         }

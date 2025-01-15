@@ -17,7 +17,7 @@ namespace BTMSAPI.Models
         public int? TireItemId { get; set; }
         public string? OldSnDebossedNo { get; set; }
 
-        [ForeignKey("TireId")]
+        [ForeignKey("TireItemId")]
         [JsonIgnore]
         public TireItem? TireItem { get; set; }
     }

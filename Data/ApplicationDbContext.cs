@@ -19,6 +19,7 @@ namespace BTMSAPI.Data
         public DbSet<TireItem> TireItems { get; set; }
         public DbSet<TireReleasedItems> TireReleasedItems { get; set; }
         public DbSet<TireReturnedItems> TireReturnedItems { get; set; }
+        public DbSet<TireDisposedItems> TireDisposedItems { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

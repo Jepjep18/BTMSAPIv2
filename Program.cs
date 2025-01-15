@@ -32,6 +32,8 @@ builder.Services.AddScoped<IBatteryReturnedItemsService, BatteryReturnedItemsSer
 builder.Services.AddScoped<ITireItemService, TireItemService>();
 builder.Services.AddScoped<ITireReleasedItemsService, TireReleasedItemsService>();
 builder.Services.AddScoped<ITireReturnedItemsService, TireReturnedItemsService>();
+builder.Services.AddScoped<ITireDisposedItemsService, TireDisposedItemsService>();
+
 
 
 // Configure JWT Authentication

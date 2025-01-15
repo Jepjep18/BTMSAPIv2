@@ -16,6 +16,7 @@ namespace BTMSAPI.Data
         public DbSet<BatteryItem> BatteryItems { get; set; }
         public DbSet<BatteryReleasedItems> BatteryReleasedItems { get; set; }
         public DbSet<BatteryReturnedItems> BatteryReturnedItems { get; set; }
+        public DbSet<TireItem> TireItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
